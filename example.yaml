@@ -1,0 +1,50 @@
+# Example ESPHome config for Casambi Evolution.
+# Replace placeholders with output from:
+#   cd tools/casambi-config && cargo run --release -- --address AA:BB:... --password '...'
+
+esphome:
+  name: casambi-bridge
+  friendly_name: Casambi Bridge
+
+esp32:
+  board: esp32-c6-devkitc-1
+  framework:
+    type: esp-idf
+
+logger:
+api:
+ota:
+  platform: esphome
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+web_server:
+  version: 3
+
+external_components:
+  - source:
+      type: local
+      path: components
+    components: [casambi]
+
+esp32_ble_tracker:
+
+ble_client:
+  - mac_address: "56:98:4A:44:8A:89"
+    id: casambi_ble
+
+casambi:
+  ble_client_id: casambi_ble
+  key_id: 7
+  key: !secret casambi_key
+
+binary_sensor:
+  - platform: casambi
+    name: "Casambi Network"
+
+light:
+   - platform: casambi
+     name: "Toads"
+     unit_id: 1

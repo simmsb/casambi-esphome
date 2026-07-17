@@ -1,0 +1,16 @@
+# Rust
+tools/casambi-config/target/
+**/*.rs.bk
+
+# ESPHome / IDE
+.esphome/
+.venv/
+.idea/
+.vscode/
+*.pyc
+__pycache__/
+.DS_Store
+
+# Secrets
+secrets.yaml
+*.secret
