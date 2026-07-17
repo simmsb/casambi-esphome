@@ -20,9 +20,7 @@ The gateway MAC is the BLE address of any unit advertising the Casambi Evolution
 
 ```yaml
 external_components:
-  - source:
-      type: local
-      path: /path/to/casambi-esphome/components
+  - source: github://simmsb/casambi-esphome
     components: [casambi]
 
 esp32_ble_tracker:
@@ -40,7 +38,6 @@ light:
   - platform: casambi
     name: "Living Room"
     unit_id: 1
-    default_transition_length: 0s
 ```
 
 See [`example.yaml`](example.yaml) for a full skeleton.

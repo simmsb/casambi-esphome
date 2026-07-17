@@ -24,9 +24,7 @@ web_server:
   version: 3
 
 external_components:
-  - source:
-      type: local
-      path: components
+  - source: github://simmsb/casambi-esphome
     components: [casambi]
 
 esp32_ble_tracker:

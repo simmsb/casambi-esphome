@@ -47,6 +47,10 @@ pub fn emit_yaml(info: &NetworkInfo, out: &mut dyn Write) -> std::io::Result<()>
     )?;
     writeln!(out, "# Key '{}' (id={}, role={})", info.key.name, info.key.id, info.key.role)?;
     writeln!(out)?;
+    writeln!(out, "external_components:")?;
+    writeln!(out, "  - source: github://simmsb/casambi-esphome")?;
+    writeln!(out, "    components: [casambi]")?;
+    writeln!(out)?;
     writeln!(out, "esp32_ble_tracker:")?;
     writeln!(out)?;
     writeln!(out, "ble_client:")?;
