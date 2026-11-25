@@ -7,8 +7,7 @@
 #include <mbedtls/entropy.h>
 #include <mbedtls/sha256.h>
 
-namespace esphome {
-namespace casambi {
+namespace esphome::casambi {
 
 static const char *const TAG_ECDH = "casambi.ecdh";
 
@@ -176,5 +175,4 @@ std::vector<uint8_t> ECDHKeyExchange::derive_transport_key() {
   return result;
 }
 
-}  // namespace casambi
-}  // namespace esphome
+}  // namespace esphome::casambi

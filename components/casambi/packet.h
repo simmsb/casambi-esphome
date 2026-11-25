@@ -5,8 +5,7 @@
 #include <cstring>
 #include <vector>
 
-namespace esphome {
-namespace casambi {
+namespace esphome::casambi {
 
 static const size_t AES_KEY_SIZE = 16;
 static const size_t CMAC_SIZE = 16;
@@ -31,5 +30,4 @@ inline uint16_t encode_target(uint8_t id, uint8_t type) {
 
 void rgb_to_hs(uint8_t r, uint8_t g, uint8_t b, uint16_t *hue, uint8_t *sat);
 
-}  // namespace casambi
-}  // namespace esphome
+}  // namespace esphome::casambi

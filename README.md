@@ -3,6 +3,8 @@
 > [!CAUTION]
 > This entire repo is slopware, it seems to work for me, might not for you. If it doesn't work you're shit outta luck.
 
+Requires ESPHome 2026.11.0 or newer (built against ESP-IDF 5.5).
+
 ## Quick start
 
 ### 1. Generate config

@@ -4,6 +4,7 @@
 
 esphome:
   name: casambi-bridge
+  min_version: 2026.11.0
   friendly_name: Casambi Bridge
 
 esp32:

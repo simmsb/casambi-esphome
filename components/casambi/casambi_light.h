@@ -1,16 +1,17 @@
 #pragma once
 
-#ifdef USE_ESP32
+#include "esphome/core/defines.h"
+
+#if defined(USE_ESP32) && defined(USE_LIGHT)
 
 #include "casambi.h"
 
 #include "esphome/components/light/light_output.h"
 #include "esphome/core/component.h"
 
-namespace esphome {
-namespace casambi {
+namespace esphome::casambi {
 
-class CasambiLightOutput : public light::LightOutput, public Component {
+class CasambiLightOutput final : public light::LightOutput, public Component {
  public:
   void set_parent(CasambiComponent *parent) { this->parent_ = parent; }
   void set_unit_id(uint8_t unit_id) { this->unit_id_ = unit_id; }
@@ -32,7 +33,6 @@ class CasambiLightOutput : public light::LightOutput, public Component {
   bool last_colored_{false};
 };
 
-}  // namespace casambi
-}  // namespace esphome
+}  // namespace esphome::casambi
 
-#endif  // USE_ESP32
+#endif  // USE_ESP32 && USE_LIGHT

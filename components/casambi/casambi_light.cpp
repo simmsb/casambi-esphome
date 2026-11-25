@@ -1,11 +1,10 @@
-#ifdef USE_ESP32
-
 #include "casambi_light.h"
+
+#if defined(USE_ESP32) && defined(USE_LIGHT)
 
 #include "esphome/core/log.h"
 
-namespace esphome {
-namespace casambi {
+namespace esphome::casambi {
 
 static const char *const TAG_LIGHT = "casambi.light";
 
@@ -60,7 +59,6 @@ void CasambiLightOutput::write_state(light::LightState *state) {
   }
 }
 
-}  // namespace casambi
-}  // namespace esphome
+}  // namespace esphome::casambi
 
-#endif  // USE_ESP32
+#endif  // USE_ESP32 && USE_LIGHT

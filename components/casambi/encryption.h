@@ -4,8 +4,7 @@
 
 #include <vector>
 
-namespace esphome {
-namespace casambi {
+namespace esphome::casambi {
 
 class CasambiEncryption {
  public:
@@ -26,5 +25,4 @@ class CasambiEncryption {
   static void left_shift_(const uint8_t *input, uint8_t *output);
 };
 
-}  // namespace casambi
-}  // namespace esphome
+}  // namespace esphome::casambi

@@ -6,8 +6,7 @@
 #include <mbedtls/ecp.h>
 #include <vector>
 
-namespace esphome {
-namespace casambi {
+namespace esphome::casambi {
 
 class ECDHKeyExchange {
  public:
@@ -29,5 +28,4 @@ class ECDHKeyExchange {
   bool device_key_set_{false};
 };
 
-}  // namespace casambi
-}  // namespace esphome
+}  // namespace esphome::casambi

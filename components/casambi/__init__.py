@@ -1,7 +1,8 @@
 import esphome.codegen as cg
-from esphome.components import ble_client
+from esphome.components import ble_client, esp32
 import esphome.config_validation as cv
 from esphome.const import CONF_ID, CONF_KEY
+from esphome.types import ConfigType
 
 CODEOWNERS = ["@casambi-esphome"]
 DEPENDENCIES = ["ble_client"]
@@ -29,7 +30,7 @@ def validate_key_hex(value):
     return value
 
 
-CONFIG_SCHEMA = (
+CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(CasambiComponent),
@@ -38,11 +39,15 @@ CONFIG_SCHEMA = (
         }
     )
     .extend(ble_client.BLE_CLIENT_SCHEMA)
-    .extend(cv.COMPONENT_SCHEMA)
+    .extend(cv.COMPONENT_SCHEMA),
+    cv.require_esphome_version(2026, 11, 0),
 )
 
 
-async def to_code(config):
+async def to_code(config: ConfigType) -> None:
+    # The key exchange uses mbedTLS ECDH, which ESPHome trims unless requested.
+    esp32.require_mbedtls_ecp()
+
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     await ble_client.register_ble_node(var, config)

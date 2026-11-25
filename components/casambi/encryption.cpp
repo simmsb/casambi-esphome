@@ -4,8 +4,7 @@
 
 #include <mbedtls/aes.h>
 
-namespace esphome {
-namespace casambi {
+namespace esphome::casambi {
 
 static const char *const TAG_ENC = "casambi.enc";
 
@@ -154,5 +153,4 @@ void CasambiEncryption::left_shift_(const uint8_t *input, uint8_t *output) {
   }
 }
 
-}  // namespace casambi
-}  // namespace esphome
+}  // namespace esphome::casambi

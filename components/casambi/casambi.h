@@ -7,17 +7,20 @@
 #include "packet.h"
 
 #include "esphome/components/ble_client/ble_client.h"
-#include "esphome/components/binary_sensor/binary_sensor.h"
 #include "esphome/components/esp32_ble_tracker/esp32_ble_tracker.h"
 #include "esphome/core/component.h"
+#include "esphome/core/defines.h"
+
+#ifdef USE_BINARY_SENSOR
+#include "esphome/components/binary_sensor/binary_sensor.h"
+#endif
 
 #include <deque>
 #include <esp_gattc_api.h>
 #include <memory>
 #include <vector>
 
-namespace esphome {
-namespace casambi {
+namespace esphome::casambi {
 
 namespace espbt = esphome::esp32_ble_tracker;
 
@@ -31,7 +34,7 @@ enum class ConnectionPhase : uint8_t {
   ERROR,
 };
 
-class CasambiComponent : public ble_client::BLEClientNode, public Component {
+class CasambiComponent final : public ble_client::BLEClientNode, public Component {
  public:
   void setup() override;
   void loop() override;
@@ -43,7 +46,9 @@ class CasambiComponent : public ble_client::BLEClientNode, public Component {
 
   void set_key_id(uint8_t key_id) { this->key_id_ = key_id; }
   void set_key(const std::vector<uint8_t> &key);
+#ifdef USE_BINARY_SENSOR
   void set_connected_sensor(binary_sensor::BinarySensor *sensor) { this->connected_sensor_ = sensor; }
+#endif
 
   bool is_authenticated() const { return this->phase_ == ConnectionPhase::AUTHENTICATED; }
 
@@ -59,7 +64,9 @@ class CasambiComponent : public ble_client::BLEClientNode, public Component {
 
   uint16_t char_handle_{0};
   ConnectionPhase phase_{ConnectionPhase::DISCONNECTED};
+#ifdef USE_BINARY_SENSOR
   binary_sensor::BinarySensor *connected_sensor_{nullptr};
+#endif
 
   std::unique_ptr<ECDHKeyExchange> key_exchange_;
   std::unique_ptr<CasambiEncryption> encryption_;
@@ -95,7 +102,6 @@ class CasambiComponent : public ble_client::BLEClientNode, public Component {
   std::vector<uint8_t> outgoing_nonce_(uint32_t counter);
 };
 
-}  // namespace casambi
-}  // namespace esphome
+}  // namespace esphome::casambi
 
 #endif  // USE_ESP32

@@ -6,8 +6,7 @@
 
 #include <mbedtls/sha256.h>
 
-namespace esphome {
-namespace casambi {
+namespace esphome::casambi {
 
 static const char *const TAG = "casambi";
 
@@ -162,8 +161,8 @@ void CasambiComponent::handle_device_info_(const uint8_t *data, uint16_t len) {
 }
 
 void CasambiComponent::enable_notifications_() {
-  auto status =
-      esp_ble_gattc_register_for_notify(this->parent()->get_gattc_if(), this->parent()->get_remote_bda(), this->char_handle_);
+  // Use the parent helper so it keeps the GATT services alive until registration completes.
+  auto status = this->parent()->register_for_notify(this->char_handle_);
   if (status != ESP_OK) {
     ESP_LOGE(TAG, "Register notify failed: %d", status);
     this->phase_ = ConnectionPhase::ERROR;
@@ -338,9 +337,11 @@ void CasambiComponent::drain_tx_queue_() {
 }
 
 void CasambiComponent::publish_connected_(bool connected) {
+#ifdef USE_BINARY_SENSOR
   if (this->connected_sensor_ != nullptr) {
     this->connected_sensor_->publish_state(connected);
   }
+#endif
 }
 
 void CasambiComponent::set_unit_level(uint8_t unit_id, uint8_t level) {
@@ -426,7 +427,6 @@ std::vector<uint8_t> CasambiComponent::outgoing_nonce_(uint32_t counter) {
   return nonce;
 }
 
-}  // namespace casambi
-}  // namespace esphome
+}  // namespace esphome::casambi
 
 #endif  // USE_ESP32

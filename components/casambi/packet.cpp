@@ -1,7 +1,6 @@
 #include "packet.h"
 
-namespace esphome {
-namespace casambi {
+namespace esphome::casambi {
 
 void rgb_to_hs(uint8_t r, uint8_t g, uint8_t b, uint16_t *hue, uint8_t *sat) {
   float rf = r / 255.0f;
@@ -30,5 +29,4 @@ void rgb_to_hs(uint8_t r, uint8_t g, uint8_t b, uint16_t *hue, uint8_t *sat) {
   *sat = static_cast<uint8_t>(s * 255.0f);
 }
 
-}  // namespace casambi
-}  // namespace esphome
+}  // namespace esphome::casambi
